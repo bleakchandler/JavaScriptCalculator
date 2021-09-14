@@ -38,7 +38,7 @@ function inputValidation(calcString) {
 function cleanUpAndCreateArrays(calcString) {
     calcString = calcString.replace(/\s/g, '');
     calcString = calcString.replaceAll("/.", "/0.")
-    calcString = calcString.replaceAll("/-.", "/-0.")
+    calcString = calcString.replaceAll("*.", "*0.")
     calcString = calcString.replaceAll("(", "a")
     calcString = calcString.replaceAll(")", "b")
     calcString = calcString.replaceAll("--", "+")
