@@ -40,6 +40,7 @@ function cleanUpAndCreateArrays(calcString) {
     calcString = calcString.replaceAll("/.", "/0.")
     calcString = calcString.replaceAll("*.", "*0.")
     calcString = calcString.replaceAll("-.", "-0.")
+    //Had to address a few pesky bugs, like below, it had an issue with a parentheses appearing at the beginning of the user input string. However, I'm going to figure out the root issue.
     if (calcString[0] === "("){
         calcString = "0+"+calcString
     }
@@ -62,10 +63,10 @@ function cleanUpAndCreateArrays(calcString) {
         }
     }
 }
-var innerParenthesesStart = 0;
-var innerParenthesesEnd = 0;
 
 //The below function accounts for parentheses, and then follows the standard order of operations within those parentheses.
+var innerParenthesesStart = 0;
+var innerParenthesesEnd = 0;
 function parentheses(calcArray) {
     for (let i = calcArray.length - 1; i >= 0; i--) {
         if (calcArray[i] === ")") {
