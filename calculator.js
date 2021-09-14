@@ -83,7 +83,7 @@ function multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd) {
         if (array[i] === "*") {
             firstNum = (array[i - 1]);
             secondNum = (array[i + 1]);
-            numResult = (firstNum * secondNum).toFixed(4)
+            numResult = (firstNum * secondNum).toFixed(3)
             if (innerParenthesesStart) {
                 tempArraySplicer(i, numResult)
                 if (array.includes("*") || array.includes("/")) {
@@ -102,7 +102,7 @@ function multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd) {
         } else if (array[i] === "/") {
             firstNum = (array[i - 1]);
             secondNum = (array[i + 1]);
-            numResult = (firstNum / secondNum).toFixed(4)
+            numResult = (firstNum / secondNum).toFixed(3)
             if (innerParenthesesStart) {
                 tempArraySplicer(i, numResult)
                 if (array.includes("*") || array.includes("/")) {
@@ -128,7 +128,7 @@ function addSubtract(array, innerParenthesesStart, innerParenthesesEnd) {
         if (array[i] === "+") {
             firstNum = (array[i - 1]);
             secondNum = (array[i + 1]);
-            numResult = ((+firstNum) + (+secondNum)).toFixed(4)
+            numResult = ((+firstNum) + (+secondNum)).toFixed(3)
             if (innerParenthesesStart) {
                 tempArraySplicer(i, numResult)
                 if (array.includes("+") || array.includes("-")) {
@@ -147,7 +147,7 @@ function addSubtract(array, innerParenthesesStart, innerParenthesesEnd) {
         } else if (array[i] === "-") {
             firstNum = (array[i - 1]);
             secondNum = (array[i + 1]);
-            numResult = (firstNum - secondNum).toFixed(4)
+            numResult = (firstNum - secondNum).toFixed(3)
             if (innerParenthesesStart) {
                 tempArraySplicer(i, numResult)
                 if (array.includes("+") || array.includes("-")) {
