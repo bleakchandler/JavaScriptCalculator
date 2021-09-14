@@ -1,0 +1,23 @@
+
+.textBox {
+    width:300px;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 200px;
+}
+
+.button {
+    width:300px;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.result {
+    width:300px;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
