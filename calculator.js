@@ -34,7 +34,7 @@ function inputValidation(calcString) {
 }
 
 //First, we need to do a few things to clean up the input string. Let's remove all the spaces and replace any instances of two consecutive subtraction signs, or consecutive addition and subtraction signs, with their equivalents to make it easier to deal with one operator at a time.
-//Secondly, I found a work around to deal with parentheses, since I was having trouble with them in regex. I simply replaced them with "a" and "b" and then swapped them back.
+//Secondly, I found a work around to deal with parentheses, since I was having trouble with them in regex. I simply replaced them with "a" and "b" and then swapped them back after the array has been made.
 function cleanUpAndCreateArrays(calcString) {
     calcString = calcString.replace(/\s/g, '');
     calcString = calcString.replaceAll("/.", "/0.")
@@ -77,7 +77,7 @@ function parentheses(calcArray) {
 }
 
 //The below function follows the "MD" part of "PEMDAS". Which ever comes first, multiplication or division, occurs. The two numbers are either multiplied or divided, and then the numbers are removed from the numbers array, and the operators are removed from the operators array.
-//This function is also used by the parentheses function, where some more logic is involved. The program will take the specific portion of an equation that needs to be operated an, like "(2+2)" from "2/5*2+(2+2)" and apply the appropriate logic.
+//This function is also used by the parentheses function, where some more logic is involved. Take a look at the "if (innerParenthesesStart) {" portion. The program will take a specific portion of an equation that needs to be operated an, like "(2+2)" from "2/5*2+(2+2)" and apply the appropriate logic.
 function multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd) {
     for (let i = 0; i < array.length; i++) {
         if (array[i] === "*") {
