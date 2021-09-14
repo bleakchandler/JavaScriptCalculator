@@ -1,22 +1,27 @@
-calcArrayOperators = [];
+calcArray = [];
 tempArray = [];
 
 function calculate(calcString) {
     calcArrayNums = [];
     inputValidation(calcString)
     cleanUpAndCreateArrays(calcString)
-    while (calcArrayOperators.length > 1) {
-        if (calcArrayOperators.includes("(")) {
-            parentheses(calcArrayOperators)
+
+    //We need to follow the order of operations! First, let’s start with everything in parentheses. Then, we attack multiplication or division, whichever comes first, and then addition or subtraction, whichever comes first. Note, I didn’t include exponents, since it wasn’t a requirement (sorry exponents!) Below, you'll see I created functions for each PEMDAS step.
+    while (calcArray.length > 1) {
+        if (calcArray.includes("(")) {
+            parentheses(calcArray)
         }
-        multiplyDivide(calcArrayOperators)
-        addSubtract(calcArrayOperators)
+        multiplyDivide(calcArray)
+        addSubtract(calcArray)
     }
-    if (calcArrayOperators.length === 1) {
-        return calcArrayOperators
+
+    //Finally, as a last step, if there is only one number left, which will be the answer, it needs to be returned as the solution to the equation.
+    if (calcArray.length === 1) {
+        return calcArray
     }
 }
 
+//Let's validate the input to make sure it doesn't contain any unsupported or incorrect characters or formatting!
 function inputValidation(calcString) {
     var regExp = /[a-zA-Z]/g;
     if (regExp.test(calcString)) {
@@ -28,6 +33,8 @@ function inputValidation(calcString) {
     }
 }
 
+//First, we need to do a few things to clean up the input string. Let's remove all the spaces and replace any instances of two consecutive subtraction signs, or consecutive addition and subtraction signs, with their equivalents to make it easier to deal with one operator at a time.
+//Secondly, I found a work around to deal with parentheses, since I was having trouble with them in regex. I simply replaced them with "a" and "b" and then swapped them back.
 function cleanUpAndCreateArrays(calcString) {
     calcString = calcString.replace(/\s/g, '');
     calcString = calcString.replaceAll("/.", "/0.")
@@ -37,42 +44,40 @@ function cleanUpAndCreateArrays(calcString) {
     calcString = calcString.replaceAll("--", "+")
     calcString = calcString.replaceAll("+-", "-")
     calcArrayNums = calcString.match(/(\d*\.)?\d+/gi);
-    calcArrayOperators = calcString.match(/[^\w]+|[\d.]+|[\a-z+]/g);
+    calcArray = calcString.match(/[^\w]+|[\d.]+|[\a-z+]/g);
     if (calcString[0] === "-") {
-        calcArrayOperators.shift()
-        calcArrayOperators[0] = "-" + calcArrayNums[0]
+        calcArray.shift()
+        calcArray[0] = "-" + calcArrayNums[0]
     }
-    for (let i = 0; i < calcArrayOperators.length; i++) {
-        if (calcArrayOperators[i] === "a") {
-            calcArrayOperators[i] = "("
+    for (let i = 0; i < calcArray.length; i++) {
+        if (calcArray[i] === "a") {
+            calcArray[i] = "("
         }
-        if (calcArrayOperators[i] === "b") {
-            calcArrayOperators[i] = ")"
+        if (calcArray[i] === "b") {
+            calcArray[i] = ")"
         }
     }
-    console.log(calcArrayOperators)
 }
 var innerParenthesesStart = 0;
 var innerParenthesesEnd = 0;
 
-function parentheses(calcArrayOperators) {
-    console.log("paren reached", calcArrayOperators)
-    for (let i = calcArrayOperators.length - 1; i >= 0; i--) {
-        if (calcArrayOperators[i] === ")") {
+//The below function accounts for parentheses, and then follows the standard order of operations within those parentheses.
+function parentheses(calcArray) {
+    for (let i = calcArray.length - 1; i >= 0; i--) {
+        if (calcArray[i] === ")") {
             innerParenthesesEnd = i;
-            console.log("innerParenthesesEnd", i)
         }
-        if (calcArrayOperators[i] === "(") {
+        if (calcArray[i] === "(") {
             innerParenthesesStart = i;
-            console.log("innerParenthesesStart", innerParenthesesStart)
-            tempArray = calcArrayOperators.slice(innerParenthesesStart, innerParenthesesEnd + 1)
-            console.log("tempArray", tempArray)
+            tempArray = calcArray.slice(innerParenthesesStart, innerParenthesesEnd + 1)
             multiplyDivide(tempArray, innerParenthesesStart, innerParenthesesEnd)
             addSubtract(tempArray, innerParenthesesStart, innerParenthesesEnd)
         }
     }
 }
 
+//The below function follows the "MD" part of "PEMDAS". Which ever comes first, multiplication or division, occurs. The two numbers are either multiplied or divided, and then the numbers are removed from the numbers array, and the operators are removed from the operators array.
+//This function is also used by the parentheses function, where some more logic is involved. The program will take the specific portion of an equation that needs to be operated an, like "(2+2)" from "2/5*2+(2+2)" and apply the appropriate logic.
 function multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd) {
     for (let i = 0; i < array.length; i++) {
         if (array[i] === "*") {
@@ -95,16 +100,11 @@ function multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd) {
                 }
             }
         } else if (array[i] === "/") {
-            console.log("division reached")
             firstNum = (array[i - 1]);
             secondNum = (array[i + 1]);
             numResult = (firstNum / secondNum).toFixed(4)
-            console.log("array for ", array)
-            console.log("numResult for ", numResult)
-            console.log("overall for ", calcArrayOperators)
             if (innerParenthesesStart) {
                 tempArraySplicer(i, numResult)
-                console.log("after division splice", calcArrayOperators)
                 if (array.includes("*") || array.includes("/")) {
                     multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd)
                 } else if (array.includes("+") || array.includes("-")) {
@@ -122,6 +122,7 @@ function multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd) {
     }
 }
 
+//The below function follows the "AS" part of "PEMDAS". Which ever comes first, addition or subtraction, occurs. The two numbers are either subtracted or added, and then the numbers are removed from the numbers array, and the operators are removed from the operators array.
 function addSubtract(array, innerParenthesesStart, innerParenthesesEnd) {
     for (let i = 0; i < array.length; i++) {
         if (array[i] === "+") {
@@ -167,21 +168,19 @@ function addSubtract(array, innerParenthesesStart, innerParenthesesEnd) {
 }
 
 function tempArraySplicer(i, numResult) {
-    console.log("temp splicer reached before", numResult)
     tempArray.splice(i - 1, 3, numResult);
-    console.log("temp splicer reached before", tempArray)
 }
 
 function parenthesesSplicer(innerParenthesesStart, innerParenthesesEnd, numResult) {
     var difference = (innerParenthesesEnd - innerParenthesesStart) + 1
-    calcArrayOperators.splice(innerParenthesesStart, difference, numResult);
-    if (calcArrayOperators.includes("(") || calcArrayOperators.includes(")")) {
-        parentheses(calcArrayOperators)
+    calcArray.splice(innerParenthesesStart, difference, numResult);
+    if (calcArray.includes("(") || calcArray.includes(")")) {
+        parentheses(calcArray)
     }
 }
 
 function splicer(i, numResult) {
-    calcArrayOperators.splice(i - 1, 3, numResult);
+    calcArray.splice(i - 1, 3, numResult);
 }
 
 //The below is needed for the webpage interaction for the input field and button.
