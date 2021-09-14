@@ -6,7 +6,7 @@ function calculate(calcString) {
     inputValidation(calcString)
     cleanUpAndCreateArrays(calcString)
 
-    //We need to follow the order of operations! First, let’s start with everything in parentheses. Then, we attack multiplication or division, whichever comes first, and then addition or subtraction, whichever comes first. Note, I didn’t include exponents, since it wasn’t a requirement (sorry exponents!) Below, you'll see I created functions for each PEMDAS step.
+//We need to follow the order of operations! First, let’s start with everything in parentheses. Then, we attack multiplication or division, whichever comes first, and then addition or subtraction, whichever comes first. Note, I didn’t include exponents, since it wasn’t a requirement (sorry exponents!) Below, you'll see I created functions for each PEMDAS step.
     while (calcArray.length > 1) {
         if (calcArray.includes("(")) {
             parentheses(calcArray)
@@ -15,7 +15,7 @@ function calculate(calcString) {
         addSubtract(calcArray)
     }
 
-    //Finally, as a last step, if there is only one number left, which will be the answer, it needs to be returned as the solution to the equation.
+//As a last step, if there is only one number left, which will be the answer, it needs to be returned as the solution to the equation.
     if (calcArray.length === 1) {
         return calcArray
     }
@@ -34,11 +34,15 @@ function inputValidation(calcString) {
 }
 
 //First, we need to do a few things to clean up the input string. Let's remove all the spaces and replace any instances of two consecutive subtraction signs, or consecutive addition and subtraction signs, with their equivalents to make it easier to deal with one operator at a time.
-//Secondly, I found a work around to deal with parentheses, since I was having trouble with them in regex. I simply replaced them with "a" and "b" and then swapped them back after the array has been made.
+//Secondly, I found a work around to deal with parentheses, since I was having trouble with them in regex. I simply replaced them with "a" and "b" and then swapped them back after.
 function cleanUpAndCreateArrays(calcString) {
     calcString = calcString.replace(/\s/g, '');
     calcString = calcString.replaceAll("/.", "/0.")
     calcString = calcString.replaceAll("*.", "*0.")
+    calcString = calcString.replaceAll("-.", "-0.")
+    if (calcString[0] === "("){
+        calcString = "0+"+calcString
+    }
     calcString = calcString.replaceAll("(", "a")
     calcString = calcString.replaceAll(")", "b")
     calcString = calcString.replaceAll("--", "+")
@@ -93,7 +97,7 @@ function multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd) {
                 } else {
                     parenthesesSplicer(innerParenthesesStart, innerParenthesesEnd, numResult)
                 }
-            } else {
+            } else {          
                 splicer(i, numResult)
                 if (array.includes("*") || array.includes("/")) {
                     multiplyDivide(array)
@@ -176,12 +180,15 @@ function tempArraySplicer(i, numResult) {
 function parenthesesSplicer(innerParenthesesStart, innerParenthesesEnd, numResult) {
     var difference = (innerParenthesesEnd - innerParenthesesStart) + 1
     calcArray.splice(innerParenthesesStart, difference, numResult);
+    if (calcArray.includes("(") || calcArray.includes(")")) {
+        parentheses(calcArray)
+    }
 }
 
+//This function modifies the original array once each calculation is complete.
 function splicer(i, numResult) {
     calcArray.splice(i - 1, 3, numResult);
 }
-
 //The below is needed for the webpage interaction for the input field and button.
 var calculateButton = document.getElementById('calculate'),
     userInput = document.getElementById('userInput'),
