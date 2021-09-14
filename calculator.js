@@ -83,6 +83,8 @@ function multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd) {
                 tempArraySplicer(i, numResult)
                 if (array.includes("*") || array.includes("/")) {
                     multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd)
+                } else if (array.includes("+") || array.includes("-")) {
+                    addSubtract(array, innerParenthesesStart, innerParenthesesEnd)
                 } else {
                     parenthesesSplicer(innerParenthesesStart, innerParenthesesEnd, numResult)
                 }
@@ -93,20 +95,27 @@ function multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd) {
                 }
             }
         } else if (array[i] === "/") {
+            console.log("division reached")
             firstNum = (array[i - 1]);
             secondNum = (array[i + 1]);
             numResult = (firstNum / secondNum).toFixed(4)
+            console.log("array for ", array)
+            console.log("numResult for ", numResult)
+            console.log("overall for ", calcArrayOperators)
             if (innerParenthesesStart) {
                 tempArraySplicer(i, numResult)
-                if (array.includes("+") || array.includes("/")) {
+                console.log("after division splice", calcArrayOperators)
+                if (array.includes("*") || array.includes("/")) {
                     multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd)
+                } else if (array.includes("+") || array.includes("-")) {
+                    addSubtract(array, innerParenthesesStart, innerParenthesesEnd)
                 } else {
                     parenthesesSplicer(innerParenthesesStart, innerParenthesesEnd, numResult)
                 }
             } else {
                 splicer(i, numResult)
                 if (array.includes("*") || array.includes("/")) {
-                    multiplyDivide(array)
+                    addSubtract(array)
                 }
             }
         }
@@ -123,6 +132,8 @@ function addSubtract(array, innerParenthesesStart, innerParenthesesEnd) {
                 tempArraySplicer(i, numResult)
                 if (array.includes("+") || array.includes("-")) {
                     addSubtract(array, innerParenthesesStart, innerParenthesesEnd)
+                } else if (array.includes("*") || array.includes("/")) {
+                    multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd)
                 } else {
                     parenthesesSplicer(innerParenthesesStart, innerParenthesesEnd, numResult)
                 }
@@ -140,6 +151,8 @@ function addSubtract(array, innerParenthesesStart, innerParenthesesEnd) {
                 tempArraySplicer(i, numResult)
                 if (array.includes("+") || array.includes("-")) {
                     addSubtract(array, innerParenthesesStart, innerParenthesesEnd)
+                } else if (array.includes("*") || array.includes("/")) {
+                    multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd)
                 } else {
                     parenthesesSplicer(innerParenthesesStart, innerParenthesesEnd, numResult)
                 }
@@ -154,7 +167,9 @@ function addSubtract(array, innerParenthesesStart, innerParenthesesEnd) {
 }
 
 function tempArraySplicer(i, numResult) {
+    console.log("temp splicer reached before", numResult)
     tempArray.splice(i - 1, 3, numResult);
+    console.log("temp splicer reached before", tempArray)
 }
 
 function parenthesesSplicer(innerParenthesesStart, innerParenthesesEnd, numResult) {
