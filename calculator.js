@@ -167,16 +167,15 @@ function addSubtract(array, innerParenthesesStart, innerParenthesesEnd) {
     }
 }
 
+//The below function will splice the data from the temporary array.
 function tempArraySplicer(i, numResult) {
     tempArray.splice(i - 1, 3, numResult);
 }
 
+//The below function will splice the data from the temporary array.
 function parenthesesSplicer(innerParenthesesStart, innerParenthesesEnd, numResult) {
     var difference = (innerParenthesesEnd - innerParenthesesStart) + 1
     calcArray.splice(innerParenthesesStart, difference, numResult);
-    if (calcArray.includes("(") || calcArray.includes(")")) {
-        parentheses(calcArray)
-    }
 }
 
 function splicer(i, numResult) {
