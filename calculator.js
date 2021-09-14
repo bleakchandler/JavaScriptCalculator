@@ -115,7 +115,7 @@ function multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd) {
             } else {
                 splicer(i, numResult)
                 if (array.includes("*") || array.includes("/")) {
-                    addSubtract(array)
+                    multiplyDivide(array)
                 }
             }
         }
