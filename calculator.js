@@ -96,10 +96,10 @@ function cleanUpAndCreateArray(calcString) {
 function parentheses(calcArray) {
     for (let i = calcArray.length - 1; i >= 0; i--) {
         if (calcArray[i] === ")") {
-            innerParenthesesEnd = i;
+            var innerParenthesesEnd = i;
         }
         if (calcArray[i] === "(") {
-            innerParenthesesStart = i;
+            var innerParenthesesStart = i;
             tempArray = calcArray.slice(innerParenthesesStart, innerParenthesesEnd + 1)
             multiplyDivide(tempArray, innerParenthesesStart, innerParenthesesEnd)
             addSubtract(tempArray, innerParenthesesStart, innerParenthesesEnd)
