@@ -19,6 +19,9 @@ while (calcArray.length > 1) {
         addSubtract(calcArray)
     }
 }
+else{
+    return "Please enter a valid input."
+}
 
 //As a last step, if there is only one number left, which will be the answer, it needs to be returned as the solution to the equation.
     if (calcArray.length === 1) {
@@ -199,5 +202,5 @@ var calculateButton = document.getElementById('calculate'),
     userInput = document.getElementById('userInput'),
     result = document.getElementById('result');
     calculateButton.addEventListener('click', function() {
-    result.innerHTML = "The answer is: " + (calculate(userInput.value));
+    result.innerHTML = (calculate(userInput.value));
 });
