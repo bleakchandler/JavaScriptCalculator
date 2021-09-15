@@ -69,6 +69,22 @@ function cleanUpAndCreateArray(calcString) {
         if (calcArray[i] === "b") {
             calcArray[i] = ")"
         }
+        if (calcArray[i] === "/-") {
+            calcArray.splice(i, 1, "/");
+            calcArray[i+1] = "-" + calcArray[i+1];
+        }
+        if (calcArray[i] === "*-") {
+            calcArray.splice(i, 1, "*");
+            calcArray[i+1] = "-" + calcArray[i+1];
+        }
+        if (calcArray[i] === "/-.") {
+            calcArray.splice(i, 1, "/");
+            calcArray[i+1] = "-." + calcArray[i+1];
+        }
+        if (calcArray[i] === "*-.") {
+            calcArray.splice(i, 1, "*");
+            calcArray[i+1] = "-." + calcArray[i+1];
+        }
     }
 }
 
