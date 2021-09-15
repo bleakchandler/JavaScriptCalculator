@@ -1,5 +1,7 @@
 calcArray = [];
 tempArray = [];
+var innerParenthesesStart = '';
+var innerParenthesesEnd ='';
 
 function calculate(calcString) {
     calcArrayNums = [];
@@ -29,18 +31,18 @@ function inputValidation(calcString) {
     }
     const invalidOperators = calcString.includes("--+") || calcString.includes("++") || calcString.includes('-+') || calcString.includes('+-+') || calcString.includes('+--');
     if (invalidOperators) {
-        alert("Cannot contain those consecutive operators!");
+        alert("Your input cannot contain those consecutive operators!");
     }
 }
 
-//First, we need to do a few things to clean up the input string. Let's remove all the spaces and replace any instances of two consecutive subtraction signs, or consecutive addition and subtraction signs, with their equivalents to make it easier to deal with one operator at a time.
+//First, we need to do a few things to clean up the input string. Let's remove all of the spaces and replace any instances of two consecutive subtraction signs, or consecutive addition and subtraction signs, with their equivalents to make it easier to deal with one operator at a time.
 //Secondly, I found a work around to deal with parentheses, since I was having trouble with them in regex. I simply replaced them with "a" and "b" and then swapped them back after.
 function cleanUpAndCreateArrays(calcString) {
     calcString = calcString.replace(/\s/g, '');
     calcString = calcString.replaceAll("/.", "/0.")
     calcString = calcString.replaceAll("*.", "*0.")
     calcString = calcString.replaceAll("-.", "-0.")
-    //Had to address a few pesky bugs, like below, it had an issue with a parentheses appearing at the beginning of the user input string. However, I'm going to figure out the root issue.
+    //I had to address a few pesky bugs, like the below, where the program had an issue with a parentheses appearing at the beginning of the user input string. However, I've added a fix below, and I'm going to figure out the root cause.
     if (calcString[0] === "("){
         calcString = "0+"+calcString
     }
@@ -64,8 +66,6 @@ function cleanUpAndCreateArrays(calcString) {
 }
 
 //The below function accounts for parentheses, and then follows the standard order of operations within those parentheses.
-var innerParenthesesStart = 0;
-var innerParenthesesEnd = 0;
 function parentheses(calcArray) {
     for (let i = calcArray.length - 1; i >= 0; i--) {
         if (calcArray[i] === ")") {
@@ -85,9 +85,9 @@ function parentheses(calcArray) {
 function multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd) {
     for (let i = 0; i < array.length; i++) {
         if (array[i] === "*") {
-            firstNum = (array[i - 1]);
-            secondNum = (array[i + 1]);
-            numResult = (firstNum * secondNum).toFixed(3)
+            var firstNum = (array[i - 1]);
+            var secondNum = (array[i + 1]);
+            var numResult = (firstNum * secondNum).toFixed(3)
             if (innerParenthesesStart) {
                 tempArraySplicer(i, numResult)
                 if (array.includes("*") || array.includes("/")) {
@@ -104,9 +104,9 @@ function multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd) {
                 }
             }
         } else if (array[i] === "/") {
-            firstNum = (array[i - 1]);
-            secondNum = (array[i + 1]);
-            numResult = (firstNum / secondNum).toFixed(3)
+            var firstNum = (array[i - 1]);
+            var secondNum = (array[i + 1]);
+            var numResult = (firstNum / secondNum).toFixed(3)
             if (innerParenthesesStart) {
                 tempArraySplicer(i, numResult)
                 if (array.includes("*") || array.includes("/")) {
@@ -130,9 +130,9 @@ function multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd) {
 function addSubtract(array, innerParenthesesStart, innerParenthesesEnd) {
     for (let i = 0; i < array.length; i++) {
         if (array[i] === "+") {
-            firstNum = (array[i - 1]);
-            secondNum = (array[i + 1]);
-            numResult = ((+firstNum) + (+secondNum)).toFixed(3)
+            var firstNum = (array[i - 1]);
+            var secondNum = (array[i + 1]);
+            var numResult = ((+firstNum) + (+secondNum)).toFixed(3)
             if (innerParenthesesStart) {
                 tempArraySplicer(i, numResult)
                 if (array.includes("+") || array.includes("-")) {
@@ -149,9 +149,9 @@ function addSubtract(array, innerParenthesesStart, innerParenthesesEnd) {
                 }
             }
         } else if (array[i] === "-") {
-            firstNum = (array[i - 1]);
-            secondNum = (array[i + 1]);
-            numResult = (firstNum - secondNum).toFixed(3)
+            var firstNum = (array[i - 1]);
+            var secondNum = (array[i + 1]);
+            var numResult = (firstNum - secondNum).toFixed(3)
             if (innerParenthesesStart) {
                 tempArraySplicer(i, numResult)
                 if (array.includes("+") || array.includes("-")) {
