@@ -92,9 +92,9 @@ function parentheses(calcArray) {
 //This function is also used by the parentheses function, where some more logic is involved. Take a look at the "if (innerParenthesesStart) {" portion. The program will take a specific portion of an equation that needs to be operated an, like "(2+2)" from "2/5*2+(2+2)" and apply the appropriate logic.
 function multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd) {
     for (let i = 0; i < array.length; i++) {
+        var firstNum = (array[i - 1]);
+        var secondNum = (array[i + 1]);
         if (array[i] === "*") {
-            var firstNum = (array[i - 1]);
-            var secondNum = (array[i + 1]);
             var numResult = (firstNum * secondNum).toFixed(3)
             if (innerParenthesesStart) {
                 tempArraySplicer(i, numResult)
@@ -112,8 +112,6 @@ function multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd) {
                 }
             }
         } else if (array[i] === "/") {
-            var firstNum = (array[i - 1]);
-            var secondNum = (array[i + 1]);
             var numResult = (firstNum / secondNum).toFixed(3)
             if (innerParenthesesStart) {
                 tempArraySplicer(i, numResult)
@@ -137,9 +135,9 @@ function multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd) {
 //The below function follows the "AS" part of "PEMDAS". Which ever comes first, addition or subtraction, occurs. The two numbers are either subtracted or added, and then the numbers are removed from the numbers array, and the operators are removed from the operators array.
 function addSubtract(array, innerParenthesesStart, innerParenthesesEnd) {
     for (let i = 0; i < array.length; i++) {
+        var firstNum = (array[i - 1]);
+        var secondNum = (array[i + 1]);
         if (array[i] === "+") {
-            var firstNum = (array[i - 1]);
-            var secondNum = (array[i + 1]);
             var numResult = ((+firstNum) + (+secondNum)).toFixed(3)
             if (innerParenthesesStart) {
                 tempArraySplicer(i, numResult)
@@ -157,8 +155,6 @@ function addSubtract(array, innerParenthesesStart, innerParenthesesEnd) {
                 }
             }
         } else if (array[i] === "-") {
-            var firstNum = (array[i - 1]);
-            var secondNum = (array[i + 1]);
             var numResult = (firstNum - secondNum).toFixed(3)
             if (innerParenthesesStart) {
                 tempArraySplicer(i, numResult)
