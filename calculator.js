@@ -48,6 +48,7 @@ function cleanUpAndCreateArray(calcString) {
     calcString = calcString.replace(/\s/g, '');
     calcString = calcString.replaceAll("/.", "/0.")
     calcString = calcString.replaceAll("*.", "*0.")
+    calcString = calcString.replaceAll("+.", "+0.")
     calcString = calcString.replaceAll("-.", "-0.")
     //I had to address a few pesky bugs, like the below, where the program had an issue with a parentheses appearing at the beginning of the user input string. However, I've added a fix below, and I'm going to figure out the root cause.
     if (calcString[0] === "("){
