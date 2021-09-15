@@ -48,11 +48,10 @@ function cleanUpAndCreateArrays(calcString) {
     calcString = calcString.replaceAll(")", "b")
     calcString = calcString.replaceAll("--", "+")
     calcString = calcString.replaceAll("+-", "-")
-    calcArrayNums = calcString.match(/(\d*\.)?\d+/gi);
     calcArray = calcString.match(/[^\w]+|[\d.]+|[\a-z+]/g);
     if (calcString[0] === "-") {
         calcArray.shift()
-        calcArray[0] = "-" + calcArrayNums[0]
+        calcArray[0] = "-" + calcArray[0]
     }
     for (let i = 0; i < calcArray.length; i++) {
         if (calcArray[i] === "a") {
