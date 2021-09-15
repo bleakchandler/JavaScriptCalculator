@@ -50,19 +50,22 @@ function cleanUpAndCreateArray(calcString) {
     calcString = calcString.replaceAll("*.", "*0.")
     calcString = calcString.replaceAll("+.", "+0.")
     calcString = calcString.replaceAll("-.", "-0.")
+    calcString = calcString.replaceAll("--", "+")
+    calcString = calcString.replaceAll("+-", "-")
     //I had to address a few pesky bugs, like the below, where the program had an issue with a parentheses appearing at the beginning of the user input string. However, I've added a fix below, and I'm going to figure out the root cause.
     if (calcString[0] === "("){
         calcString = "0+"+calcString
     }
     calcString = calcString.replaceAll("(", "a")
     calcString = calcString.replaceAll(")", "b")
-    calcString = calcString.replaceAll("--", "+")
-    calcString = calcString.replaceAll("+-", "-")
+    //Now, let's create the array with the numbers and symbols separated.
     calcArray = calcString.match(/[^\w]+|[\d.]+|[\a-z+]/g);
+    //An error occurs if a negative is the first symbol in the string. Let's replace with "0-", since it represents the same thing and won't affect the equation.
     if (calcString[0] === "-") {
         calcArray.shift()
         calcArray[0] = "-" + calcArray[0]
     }
+    //Now, let's put the parentheses back, as well as address the problematic symbols that still need to be separated. For example, "/-" needs to be changed to "/" and "-", as two separate symbols. The way I currently have regex set tup doesn't account for this, but I'm working to change that.
     for (let i = 0; i < calcArray.length; i++) {
         if (calcArray[i] === "a") {
             calcArray[i] = "("
