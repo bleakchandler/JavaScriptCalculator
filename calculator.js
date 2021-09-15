@@ -35,7 +35,7 @@ function inputValidation(calcString) {
         alert("Your input cannot contain any letters!");
         inputValidationError = true;
     }
-    const invalidOperators = calcString.includes("--+") || calcString.includes("++") || calcString.includes('-+') || calcString.includes('+-+') || calcString.includes('+--');
+    const invalidOperators = calcString.includes("--+") || calcString.includes("---") || calcString.includes("++") || calcString.includes('-+') || calcString.includes('+-+') || calcString.includes('+--');
     if (invalidOperators) {
         alert("Your input cannot contain those consecutive operators!");
         inputValidationError = true;
