@@ -1,10 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap");
 
 .textBox {
+    padding:6px 13px;
+    font-size:20px;
+    font-family: "Source Sans Pro";
     width:300px;
+    border:2px solid #1f2f47;
     display:block;
+    background-color:#ffffff;
+    resize: none;
+    outline: none;
     margin-left: auto;
     margin-right: auto;
-    border-radius:17px;
+    border-radius:50px;
 }
 
 .logo {
@@ -17,16 +25,15 @@
 
 .result {
     text-align: center;
-	border-radius:17px;
-	border:1px solid #1f2f47;
+	border-radius:50px;
 	display:inline-block;
 	cursor:pointer;
 	color:#0e0e0e;
-	font-family:Arial;
-	font-size:15px;
-	padding:6px 13px;
+    font-family: "Source Sans Pro";
+	font-size:20px;
+	padding:8px 12px;
 	text-decoration:none;
-    width:100px;
+    width:140px;
     margin-left: auto;
     margin-right: auto;
     display:block;
@@ -34,14 +41,15 @@
 }
 
 .button {
-	background-color:#000000;
-	border-radius:17px;
+    background-color:#000000;
+    border: 0;
+	border-radius:50px;
 	display:inline-block;
 	cursor:pointer;
 	color:#ffffff;
-	font-family:Arial;
-	font-size:15px;
-	padding:6px 13px;
+    font-family: "Source Sans Pro";
+	font-size:20px;
+	padding:8px 12px;
 	text-decoration:none;
     width:130px;
     margin-left: auto;
@@ -56,6 +64,3 @@
 	position:relative;
 	top:1px;
 }
-
-        
-
