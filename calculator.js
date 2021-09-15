@@ -1,7 +1,7 @@
 calcArray = [];
 tempArray = [];
 var innerParenthesesStart = '';
-var innerParenthesesEnd ='';
+var innerParenthesesEnd = '';
 
 function calculate(calcString) {
     calcArrayNums = [];
@@ -194,5 +194,5 @@ var calculateButton = document.getElementById('calculate'),
     userInput = document.getElementById('userInput'),
     result = document.getElementById('result');
     calculateButton.addEventListener('click', function() {
-    result.innerHTML = "The answer is " + (calculate(userInput.value));
+    result.innerHTML = "The answer is: " + (calculate(userInput.value));
 });
