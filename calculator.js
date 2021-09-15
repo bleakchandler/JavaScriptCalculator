@@ -2,6 +2,7 @@ calcArray = [];
 tempArray = [];
 var innerParenthesesStart = '';
 var innerParenthesesEnd = '';
+var inputValidationError = false;
 
 function calculate(calcString) {
     calcArrayNums = [];
@@ -9,13 +10,15 @@ function calculate(calcString) {
     cleanUpAndCreateArrays(calcString)
 
 //We need to follow the order of operations! First, let’s start with everything in parentheses. Then, we attack multiplication or division, whichever comes first, and then addition or subtraction, whichever comes first. Note, I didn’t include exponents, since it wasn’t a requirement (sorry exponents!) Below, you'll see I created functions for each PEMDAS step.
-    while (calcArray.length > 1) {
+if (inputValidationError!==true){
+while (calcArray.length > 1) {
         if (calcArray.includes("(")) {
             parentheses(calcArray)
         }
         multiplyDivide(calcArray)
         addSubtract(calcArray)
     }
+}
 
 //As a last step, if there is only one number left, which will be the answer, it needs to be returned as the solution to the equation.
     if (calcArray.length === 1) {
@@ -28,10 +31,12 @@ function inputValidation(calcString) {
     var regExp = /[a-zA-Z]/g;
     if (regExp.test(calcString)) {
         alert("Your input cannot contain any letters!");
+        inputValidationError = true;
     }
     const invalidOperators = calcString.includes("--+") || calcString.includes("++") || calcString.includes('-+') || calcString.includes('+-+') || calcString.includes('+--');
     if (invalidOperators) {
         alert("Your input cannot contain those consecutive operators!");
+        inputValidationError = true;
     }
 }
 
