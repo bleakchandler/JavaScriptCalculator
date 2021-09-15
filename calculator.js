@@ -6,7 +6,7 @@ var inputValidationError = false;
 
 function calculate(calcString) {
     inputValidation(calcString)
-    cleanUpAndCreateArrays(calcString)
+    cleanUpAndCreateArray(calcString)
 
 //We need to follow the order of operations! First, let’s start with everything in parentheses. Then, we attack multiplication or division, whichever comes first, and then addition or subtraction, whichever comes first. Note, I didn’t include exponents, since it wasn’t a requirement (sorry exponents!) Below, you'll see I created functions for each PEMDAS step.
 if (inputValidationError!==true){
@@ -44,7 +44,7 @@ function inputValidation(calcString) {
 
 //First, we need to do a few things to clean up the input string. Let's remove all of the spaces and replace any instances of two consecutive subtraction signs, or consecutive addition and subtraction signs, with their equivalents to make it easier to deal with one operator at a time.
 //Secondly, I found a work around to deal with parentheses, since I was having trouble with them in regex. I simply replaced them with "a" and "b" and then swapped them back after.
-function cleanUpAndCreateArrays(calcString) {
+function cleanUpAndCreateArray(calcString) {
     calcString = calcString.replace(/\s/g, '');
     calcString = calcString.replaceAll("/.", "/0.")
     calcString = calcString.replaceAll("*.", "*0.")
