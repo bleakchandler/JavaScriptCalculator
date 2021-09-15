@@ -5,7 +5,6 @@ var innerParenthesesEnd = '';
 var inputValidationError = false;
 
 function calculate(calcString) {
-    calcArrayNums = [];
     inputValidation(calcString)
     cleanUpAndCreateArrays(calcString)
 
