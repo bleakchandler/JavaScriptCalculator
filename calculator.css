@@ -4,20 +4,58 @@
     display:block;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 200px;
+    border-radius:17px;
+}
+
+.logo {
+    width:300px;
+    margin-top: 20px;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+} 
+
+.result {
+    text-align: center;
+	border-radius:17px;
+	border:1px solid #1f2f47;
+	display:inline-block;
+	cursor:pointer;
+	color:#0e0e0e;
+	font-family:Arial;
+	font-size:15px;
+	padding:6px 13px;
+	text-decoration:none;
+    width:100px;
+    margin-left: auto;
+    margin-right: auto;
+    display:block;
+    margin-top: 20px;
 }
 
 .button {
-    width:300px;
-    display:block;
+	background-color:#000000;
+	border-radius:17px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	padding:6px 13px;
+	text-decoration:none;
+    width:130px;
     margin-left: auto;
     margin-right: auto;
+    display:block;
+    margin-top: 20px;
+}
+.button:hover {
+	background-color:#666666;
+}
+.button:active {
+	position:relative;
+	top:1px;
 }
 
-.result {
-    width:300px;
-    display:block;
-    margin-left: auto;
-    margin-right: auto;
-}
+        
 
