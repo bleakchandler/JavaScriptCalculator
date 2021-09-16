@@ -52,6 +52,7 @@ function cleanUpAndCreateArray(calcString) {
     calcString = calcString.replaceAll("+.", "+0.")
     calcString = calcString.replaceAll("-.", "-0.")
     calcString = calcString.replaceAll("(.", "(0.")
+    calcString = calcString.replaceAll("(-", "(0-")
     calcString = calcString.replaceAll("--", "+")
     calcString = calcString.replaceAll("+-", "-")
     //I had to address a few pesky bugs, like the below, where the program had an issue with a parentheses appearing at the beginning of the user input string. However, I've added a fix below, and I'm going to figure out the root cause.
@@ -187,7 +188,7 @@ function tempArraySplicer(i, numResult) {
 function parenthesesSplicer(innerParenthesesStart, innerParenthesesEnd, numResult) {
     var difference = (innerParenthesesEnd - innerParenthesesStart) + 1
     calcArray.splice(innerParenthesesStart, difference, numResult);
-    if (calcArray.includes("(") || calcArray.includes(")")) {
+    if (calcArray.includes("(" || ")")) {
         parentheses(calcArray)
     }
 }
