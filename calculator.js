@@ -43,6 +43,7 @@ function inputValidation(calcString) {
 }
 
 //First, we need to do a few things to clean up the input string. Let's remove all of the spaces and replace any instances of two consecutive subtraction signs, or consecutive addition and subtraction signs, with their equivalents to make it easier to deal with one operator at a time.
+//(Note: I know the below method isn't the most efficient way to parse the array, and I'm currently working on creating a better method.)
 //Secondly, I found a work around to deal with parentheses, since I was having trouble with them in regex. I simply replaced them with "a" and "b" and then swapped them back after.
 function cleanUpAndCreateArray(calcString) {
     calcString = calcString.replace(/\s/g, '');
