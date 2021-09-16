@@ -173,12 +173,17 @@ function addSubtract(array, innerParenthesesStart, innerParenthesesEnd) {
     }
 }
 
+//This function modifies the original array once each calculation is complete.
+function splicer(i, numResult) {
+    calcArray.splice(i - 1, 3, numResult);
+}
+
 //The below function will splice the data from the temporary array.
 function tempArraySplicer(i, numResult) {
     tempArray.splice(i - 1, 3, numResult);
 }
 
-//The below function will splice the data from the temporary array.
+//The below function will splice the parentheses data from the original array once the equation inside the parentheses has been completed.
 function parenthesesSplicer(innerParenthesesStart, innerParenthesesEnd, numResult) {
     var difference = (innerParenthesesEnd - innerParenthesesStart) + 1
     calcArray.splice(innerParenthesesStart, difference, numResult);
@@ -187,10 +192,6 @@ function parenthesesSplicer(innerParenthesesStart, innerParenthesesEnd, numResul
     }
 }
 
-//This function modifies the original array once each calculation is complete.
-function splicer(i, numResult) {
-    calcArray.splice(i - 1, 3, numResult);
-}
 //The below is needed for the webpage interaction for the input field and button.
 var calculateButton = document.getElementById('calculate'),
     userInput = document.getElementById('userInput'),
