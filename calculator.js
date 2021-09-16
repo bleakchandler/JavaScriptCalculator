@@ -113,25 +113,13 @@ function multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd) {
     for (let i = 0; i < array.length; i++) {
         var firstNum = (array[i - 1]);
         var secondNum = (array[i + 1]);
+        var numResult = '';
         if (array[i] === "*") {
             var numResult = (firstNum * secondNum).toFixed(3)
-            if (innerParenthesesStart) {
-                tempArraySplicer(i, numResult)
-                if (array.includes("*") || array.includes("/")) {
-                    multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd)
-                } else if (array.includes("+") || array.includes("-")) {
-                    addSubtract(array, innerParenthesesStart, innerParenthesesEnd)
-                } else {
-                    parenthesesSplicer(innerParenthesesStart, innerParenthesesEnd, numResult)
-                }
-            } else {          
-                splicer(i, numResult)
-                if (array.includes("*") || array.includes("/")) {
-                    multiplyDivide(array)
-                }
-            }
         } else if (array[i] === "/") {
             var numResult = (firstNum / secondNum).toFixed(3)
+        }
+        if (numResult) {
             if (innerParenthesesStart) {
                 tempArraySplicer(i, numResult)
                 if (array.includes("*") || array.includes("/")) {
@@ -156,25 +144,14 @@ function addSubtract(array, innerParenthesesStart, innerParenthesesEnd) {
     for (let i = 0; i < array.length; i++) {
         var firstNum = (array[i - 1]);
         var secondNum = (array[i + 1]);
+        var numResult = '';
         if (array[i] === "+") {
-            var numResult = ((+firstNum) + (+secondNum)).toFixed(3)
-            if (innerParenthesesStart) {
-                tempArraySplicer(i, numResult)
-                if (array.includes("+") || array.includes("-")) {
-                    addSubtract(array, innerParenthesesStart, innerParenthesesEnd)
-                } else if (array.includes("*") || array.includes("/")) {
-                    multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd)
-                } else {
-                    parenthesesSplicer(innerParenthesesStart, innerParenthesesEnd, numResult)
-                }
-            } else {
-                splicer(i, numResult)
-                if (array.includes("+") || array.includes("-")) {
-                    addSubtract(array)
-                }
-            }
-        } else if (array[i] === "-") {
-            var numResult = (firstNum - secondNum).toFixed(3)
+            numResult = ((+firstNum) + (+secondNum)).toFixed(3)
+        }
+        if (array[i] === "-") {
+            numResult = (firstNum - secondNum).toFixed(3)
+        }
+        if (numResult) {
             if (innerParenthesesStart) {
                 tempArraySplicer(i, numResult)
                 if (array.includes("+") || array.includes("-")) {
