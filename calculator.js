@@ -51,6 +51,7 @@ function cleanUpAndCreateArray(calcString) {
     calcString = calcString.replaceAll("*.", "*0.")
     calcString = calcString.replaceAll("+.", "+0.")
     calcString = calcString.replaceAll("-.", "-0.")
+    calcString = calcString.replaceAll("(.", "(0.")
     calcString = calcString.replaceAll("--", "+")
     calcString = calcString.replaceAll("+-", "-")
     //I had to address a few pesky bugs, like the below, where the program had an issue with a parentheses appearing at the beginning of the user input string. However, I've added a fix below, and I'm going to figure out the root cause.
@@ -123,16 +124,16 @@ function multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd) {
         if (numResult) {
             if (innerParenthesesStart) {
                 tempArraySplicer(i, numResult)
-                if (array.includes("*") || array.includes("/")) {
+                if (array.includes("*" || "/")) {
                     multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd)
-                } else if (array.includes("+") || array.includes("-")) {
+                } else if (array.includes("+" || "-")) {
                     addSubtract(array, innerParenthesesStart, innerParenthesesEnd)
                 } else {
                     parenthesesSplicer(innerParenthesesStart, innerParenthesesEnd, numResult)
                 }
             } else {
                 splicer(i, numResult)
-                if (array.includes("*") || array.includes("/")) {
+                if (array.includes("*" || "/")) {
                     multiplyDivide(array)
                 }
             }
@@ -155,16 +156,16 @@ function addSubtract(array, innerParenthesesStart, innerParenthesesEnd) {
         if (numResult) {
             if (innerParenthesesStart) {
                 tempArraySplicer(i, numResult)
-                if (array.includes("+") || array.includes("-")) {
+                if (array.includes("+" || "-")) {
                     addSubtract(array, innerParenthesesStart, innerParenthesesEnd)
-                } else if (array.includes("*") || array.includes("/")) {
+                } else if (array.includes("*" || "/")) {
                     multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd)
                 } else {
                     parenthesesSplicer(innerParenthesesStart, innerParenthesesEnd, numResult)
                 }
             } else {
                 splicer(i, numResult)
-                if (array.includes("+") || array.includes("-")) {
+                if (array.includes("+" || "-")) {
                     addSubtract(array)
                 }
             }
