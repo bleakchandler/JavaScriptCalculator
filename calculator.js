@@ -118,9 +118,9 @@ function multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd) {
         var secondNum = (array[i + 1]);
         var numResult = '';
         if (array[i] === "*") {
-            var numResult = (firstNum * secondNum).toFixed(3)
+            numResult = (firstNum * secondNum).toFixed(3)
         } else if (array[i] === "/") {
-            var numResult = (firstNum / secondNum).toFixed(3)
+            numResult = (firstNum / secondNum).toFixed(3)
         }
         if (numResult) {
             if (innerParenthesesStart) {
