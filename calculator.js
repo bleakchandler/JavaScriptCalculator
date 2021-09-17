@@ -120,7 +120,8 @@ function multiplyDivide(array, innerParenthesesStart, innerParenthesesEnd) {
         var numResult = '';
         if (array[i] === "*") {
             numResult = (firstNum * secondNum).toFixed(3)
-        } else if (array[i] === "/") {
+        } 
+        if (array[i] === "/") {
             numResult = (firstNum / secondNum).toFixed(3)
         }
         if (numResult) {
