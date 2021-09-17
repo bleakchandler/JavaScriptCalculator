@@ -9,7 +9,7 @@ function calculate(calcString) {
     cleanUpAndCreateArray(calcString)
 
 //We need to follow the order of operations! First, let’s start with everything in parentheses. Then, we attack multiplication or division, whichever comes first, and then addition or subtraction, whichever comes first. Note, I didn’t include exponents, since it wasn’t a requirement (sorry exponents!) Below, you'll see I created functions for each PEMDAS step.
-if (inputValidationError=false){
+if (inputValidationError === false){
 while (calcArray.length > 1) {
         if (calcArray.includes("(")) {
             parentheses(calcArray)
