@@ -19,6 +19,7 @@ while (calcArray.length > 1) {
     }
 }
 else{
+    inputValidationError = false;
     return "Please enter a valid input."
 }
 
